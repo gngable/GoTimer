@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Plugin.SimpleAudioPlayer;
 using Prism.Commands;
 using Prism.Mvvm;
+using Xamarin.Essentials;
 
 namespace GoTimer
 {
@@ -37,7 +38,22 @@ namespace GoTimer
         public bool IsRunning
         {
             get => _isRunning;
-            set => SetProperty(ref _isRunning, value);
+            set
+            {
+                SetProperty(ref _isRunning, value);
+
+                try
+                {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        DeviceDisplay.KeepScreenOn = IsRunning;
+                    });
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
 
         public TimeSpan TimeLeft
