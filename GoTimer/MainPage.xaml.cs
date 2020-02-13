@@ -18,5 +18,10 @@ namespace GoTimer
             InitializeComponent();
             BindingContext = new MainPageViewModel();
         }
+
+        private void TapGestureRecognizer_OnTapped(object sender, EventArgs e)
+        {
+            (BindingContext as MainPageViewModel)?.StartCommand?.Execute();
+        }
     }
 }

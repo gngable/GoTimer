@@ -27,7 +27,15 @@ namespace GoTimer
         private int _time = 15;
         private bool _isRunning;
         private TimeSpan _timeLeft;
-        private double _ringOneOpacity;
+        private double _ringOneOpacity = 1;
+        private double _ringTwoOpacity = 1;
+
+        private int _numberOfRings = 7;
+        private double _ringSevenOpacity = 1;
+        private double _ringSixOpacity = 1;
+        private double _ringFiveOpacity = 1;
+        private double _ringFourOpacity = 1;
+        private double _ringThreeOpacity = 1;
 
         public int Time
         {
@@ -68,6 +76,42 @@ namespace GoTimer
             set => SetProperty(ref _ringOneOpacity, value);
         }
 
+        public double RingTwoOpacity
+        {
+            get => _ringTwoOpacity;
+            set => SetProperty(ref _ringTwoOpacity, value);
+        }
+
+        public double RingThreeOpacity
+        {
+            get => _ringThreeOpacity;
+            set => SetProperty(ref _ringThreeOpacity, value);
+        }
+
+        public double RingFourOpacity
+        {
+            get => _ringFourOpacity;
+            set => SetProperty(ref _ringFourOpacity, value);
+        }
+
+        public double RingFiveOpacity
+        {
+            get => _ringFiveOpacity;
+            set => SetProperty(ref _ringFiveOpacity, value);
+        }
+
+        public double RingSixOpacity
+        {
+            get => _ringSixOpacity;
+            set => SetProperty(ref _ringSixOpacity, value);
+        }
+
+        public double RingSevenOpacity
+        {
+            get => _ringSevenOpacity;
+            set => SetProperty(ref _ringSevenOpacity, value);
+        }
+
         public DelegateCommand StartCommand { get; }
 
         public DelegateCommand StopCommand { get; }
@@ -97,22 +141,39 @@ namespace GoTimer
                 {
                     _startTime = TimeSpan.FromSeconds(Time);
                     _stopwatch = Stopwatch.StartNew();
+                    RingOneOpacity = 1;
+                    RingTwoOpacity = 1;
+                    RingThreeOpacity = 1;
+                    RingFourOpacity = 1;
+                    RingFiveOpacity = 1;
+                    RingSixOpacity = 1;
+                    RingSevenOpacity = 1;
                     return;
                 }
             }
 
             Task.Run(async () =>
             {
+                
+
                 lock (_sync)
                 {
                     IsRunning = true;
                     _stopNow = false;
-                    RingOneOpacity = 1.0;
+                    RingOneOpacity = 1;
+                    RingTwoOpacity = 1;
+                    RingThreeOpacity = 1;
+                    RingFourOpacity = 1;
+                    RingFiveOpacity = 1;
+                    RingSixOpacity = 1;
+                    RingSevenOpacity = 1;
                     _timeUp = false;
                     TimeLeft = TimeSpan.FromSeconds(Time);
                     _startTime = TimeSpan.FromSeconds(Time);
                     _stopwatch = Stopwatch.StartNew();
                 }
+
+                double segment = (_startTime.TotalMilliseconds / _numberOfRings);
 
                 StopAlarm();
 
@@ -132,6 +193,16 @@ namespace GoTimer
                             break;
                         }
                     }
+
+                    int ring = (int)(_stopwatch.Elapsed.TotalMilliseconds / segment) + 1;
+
+                    RingOneOpacity = ring == 1 ? (1 - (_stopwatch.Elapsed.TotalMilliseconds) / segment) : 0;
+                    RingTwoOpacity = ring < 2 ? 1 : (ring > 2 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - segment) / segment));
+                    RingThreeOpacity = ring < 3 ? 1 : (ring > 3 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
+                    RingFourOpacity = ring < 4 ? 1 : (ring > 4 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
+                    RingFiveOpacity = ring < 5 ? 1 : (ring > 5 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
+                    RingSixOpacity = ring < 6 ? 1 : (ring > 6 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
+                    RingSevenOpacity = ring < 7 ? 1 : (ring > 7 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
                 }
             });
         }
