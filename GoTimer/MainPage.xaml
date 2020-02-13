@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:goTimer="clr-namespace:GoTimer;assembly=GoTimer"
+             mc:Ignorable="d"
+             x:Class="GoTimer.MainPage">
+    <ContentPage.Resources>
+        <goTimer:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalOptions="Center" VerticalTextAlignment="Center" Text="Time:" Margin="5"/>
+            <Entry Grid.Column="1" Text="{Binding Time}" Keyboard="Numeric"/>
+        </Grid>
+        <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding TimeLeft}" IsVisible="{Binding IsRunning}" Margin="5" FontSize="Large"/>
+        <Button Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Text="Go!" Command="{Binding StartCommand}"/>
+        <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" Command="{Binding StopCommand}" IsVisible="{Binding IsRunning}"/>
+    </Grid>
+
+</ContentPage>

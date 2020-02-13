@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoTimer.Android", "GoTimer.Android\GoTimer.Android.csproj", "{1F6ADB35-55D6-4D0C-93E1-24B033F26322}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoTimer", "GoTimer\GoTimer.csproj", "{24893693-DB82-499B-A094-D0FBCC09DD6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F6ADB35-55D6-4D0C-93E1-24B033F26322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6ADB35-55D6-4D0C-93E1-24B033F26322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6ADB35-55D6-4D0C-93E1-24B033F26322}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1F6ADB35-55D6-4D0C-93E1-24B033F26322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6ADB35-55D6-4D0C-93E1-24B033F26322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6ADB35-55D6-4D0C-93E1-24B033F26322}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{24893693-DB82-499B-A094-D0FBCC09DD6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24893693-DB82-499B-A094-D0FBCC09DD6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24893693-DB82-499B-A094-D0FBCC09DD6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24893693-DB82-499B-A094-D0FBCC09DD6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED35D00B-5F82-4F65-B634-C9F94B8AD0B2}
+	EndGlobalSection
+EndGlobal
