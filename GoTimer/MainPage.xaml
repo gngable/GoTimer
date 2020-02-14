@@ -5,12 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:goTimer="clr-namespace:GoTimer;assembly=GoTimer"
              mc:Ignorable="d"
-             x:Class="GoTimer.MainPage">
+             x:Class="GoTimer.MainPage"
+             LayoutChanged="MainPage_OnLayoutChanged">
     <ContentPage.Resources>
         <goTimer:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </ContentPage.Resources>
 
-    <Grid BackgroundColor="LightSkyBlue">
+    <Grid BackgroundColor="LightSkyBlue" x:Name="TotalGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -24,53 +25,53 @@
             </Grid.ColumnDefinitions>
             <Label VerticalOptions="Center" VerticalTextAlignment="Center" Text="Time:" Margin="5"/>
             <Entry Grid.Column="1" Text="{Binding Time}" Keyboard="Numeric"/>
-            <Label VerticalOptions="Center" VerticalTextAlignment="Center" Text="Seconds" Margin="5"/>
+            <Label Grid.Column="2" VerticalOptions="Center" VerticalTextAlignment="Center" Text="Seconds" Margin="5"/>
         </Grid>
         <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding TimeLeft}" IsVisible="{Binding IsRunning}" Margin="5" FontSize="Large"/>
 
-        <Frame Grid.Row="1" BackgroundColor="DeepPink" Opacity="{Binding RingOneOpacity}" CornerRadius="30" Margin="15">
+        <Frame Grid.Row="1" BackgroundColor="DeepPink" Opacity="{Binding RingOneOpacity}" x:Name="RingOne">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="Pink" Opacity="{Binding RingTwoOpacity}" CornerRadius="30" Margin="30">
+        <Frame Grid.Row="1" BackgroundColor="Pink" Opacity="{Binding RingTwoOpacity}" x:Name="RingTwo">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="Purple" Opacity="{Binding RingThreeOpacity}" CornerRadius="30" Margin="45">
+        <Frame Grid.Row="1" BackgroundColor="Purple" Opacity="{Binding RingThreeOpacity}" x:Name="RingThree">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="MediumPurple" Opacity="{Binding RingFourOpacity}" CornerRadius="30" Margin="60">
+        <Frame Grid.Row="1" BackgroundColor="MediumPurple" Opacity="{Binding RingFourOpacity}" x:Name="RingFour">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="DarkTurquoise" Opacity="{Binding RingFiveOpacity}" CornerRadius="30" Margin="75">
+        <Frame Grid.Row="1" BackgroundColor="DarkTurquoise" Opacity="{Binding RingFiveOpacity}" x:Name="RingFive">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="MediumTurquoise" Opacity="{Binding RingSixOpacity}" CornerRadius="30" Margin="90">
+        <Frame Grid.Row="1" BackgroundColor="MediumTurquoise" Opacity="{Binding RingSixOpacity}" x:Name="RingSix">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="PaleTurquoise" Opacity="{Binding RingSevenOpacity}" CornerRadius="30" Margin="105">
+        <Frame Grid.Row="1" BackgroundColor="PaleTurquoise" Opacity="{Binding RingSevenOpacity}" x:Name="RingSeven">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
@@ -87,6 +88,11 @@
         </Label>
 
         <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" Command="{Binding StopCommand}" BackgroundColor="LightSkyBlue" IsVisible="{Binding IsRunning}"/>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
+            <CheckBox IsChecked="{Binding DarkMode}" Margin="5"/>
+            <Label Text="Darkness" VerticalTextAlignment="Center" Margin="5"/>
+        </StackLayout>
     </Grid>
 
 </ContentPage>

@@ -36,6 +36,7 @@ namespace GoTimer
         private double _ringFiveOpacity = 1;
         private double _ringFourOpacity = 1;
         private double _ringThreeOpacity = 1;
+        private bool _darkMode;
 
         public int Time
         {
@@ -62,6 +63,12 @@ namespace GoTimer
 
                 }
             }
+        }
+
+        public bool DarkMode
+        {
+            get => _darkMode;
+            set => SetProperty(ref _darkMode, value);
         }
 
         public TimeSpan TimeLeft
@@ -119,18 +126,20 @@ namespace GoTimer
         public MainPageViewModel()
         {
             StartCommand = new DelegateCommand(ExecuteStartCommand);
-            StopCommand = new DelegateCommand(() =>
-            {
-                lock(_sync)
-                {
-                    _stopNow = true;
-                    IsRunning = false;
-                    _timeUp = false;
-                    StopAlarm();
-                }
-            });
+            StopCommand = new DelegateCommand(ExecuteStopCommand);
 
             _player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+        }
+
+        private void ExecuteStopCommand()
+        {
+            lock (_sync)
+            {
+                _stopNow = true;
+                IsRunning = false;
+                _timeUp = false;
+                StopAlarm();
+            }
         }
 
         private void ExecuteStartCommand()
@@ -203,6 +212,17 @@ namespace GoTimer
                     RingFiveOpacity = ring < 5 ? 1 : (ring > 5 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
                     RingSixOpacity = ring < 6 ? 1 : (ring > 6 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
                     RingSevenOpacity = ring < 7 ? 1 : (ring > 7 ? 0 : (1 - (_stopwatch.Elapsed.TotalMilliseconds - (segment * (ring - 1))) / segment));
+                }
+
+                if (_stopNow)
+                {
+                    RingOneOpacity = 1;
+                    RingTwoOpacity = 1;
+                    RingThreeOpacity = 1;
+                    RingFourOpacity = 1;
+                    RingFiveOpacity = 1;
+                    RingSixOpacity = 1;
+                    RingSevenOpacity = 1;
                 }
             });
         }
