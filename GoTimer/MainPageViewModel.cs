@@ -74,8 +74,14 @@ namespace GoTimer
         public TimeSpan TimeLeft
         {
             get => _timeLeft;
-            set => SetProperty(ref _timeLeft, value);
+            set
+            {
+                SetProperty(ref _timeLeft, value);
+                RaisePropertyChanged(nameof(TimeText));
+            }
         }
+
+        public string TimeText => $"{TimeLeft.Minutes % 100 :D2}:{TimeLeft.Seconds % 100:D2}:{TimeLeft.Milliseconds % 100:D2}";
 
         public double RingOneOpacity
         {

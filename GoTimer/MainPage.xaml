@@ -12,11 +12,17 @@
     </ContentPage.Resources>
 
     <Grid BackgroundColor="LightSkyBlue" x:Name="TotalGrid">
+        <Grid.Triggers>
+            <DataTrigger  TargetType="Grid" Binding="{Binding DarkMode}" Value="True">
+                <Setter  Property="BackgroundColor" Value="White"/>
+            </DataTrigger>
+        </Grid.Triggers>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="0" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -27,7 +33,7 @@
             <Entry Grid.Column="1" Text="{Binding Time}" Keyboard="Numeric"/>
             <Label Grid.Column="2" VerticalOptions="Center" VerticalTextAlignment="Center" Text="Seconds" Margin="5"/>
         </Grid>
-        <Label Grid.Row="0" HorizontalOptions="Center" Text="{Binding TimeLeft}" IsVisible="{Binding IsRunning}" Margin="5" FontSize="Large"/>
+        <Label Grid.Row="0" HorizontalOptions="CenterAndExpand" Text="{Binding TimeText}" IsVisible="{Binding IsRunning}" Margin="5" FontSize="Large"/>
 
         <Frame Grid.Row="1" BackgroundColor="DeepPink" Opacity="{Binding RingOneOpacity}" x:Name="RingOne">
             <Frame.GestureRecognizers>
@@ -35,6 +41,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="SkyBlue"/>
+                    <Setter  Property="BorderColor" Value="DeepSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
         <Frame Grid.Row="1" BackgroundColor="Pink" Opacity="{Binding RingTwoOpacity}" x:Name="RingTwo">
             <Frame.GestureRecognizers>
@@ -42,6 +54,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="SkyBlue"/>
+                    <Setter  Property="BorderColor" Value="DeepSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
         <Frame Grid.Row="1" BackgroundColor="Purple" Opacity="{Binding RingThreeOpacity}" x:Name="RingThree">
             <Frame.GestureRecognizers>
@@ -49,6 +67,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="LightSkyBlue"/>
+                    <Setter  Property="BorderColor" Value="DeepSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
         <Frame Grid.Row="1" BackgroundColor="MediumPurple" Opacity="{Binding RingFourOpacity}" x:Name="RingFour">
             <Frame.GestureRecognizers>
@@ -56,6 +80,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="LightSkyBlue"/>
+                    <Setter  Property="BorderColor" Value="DeepSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
         <Frame Grid.Row="1" BackgroundColor="DarkTurquoise" Opacity="{Binding RingFiveOpacity}" x:Name="RingFive">
             <Frame.GestureRecognizers>
@@ -63,6 +93,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="LightSkyBlue"/>
+                    <Setter  Property="BorderColor" Value="DeepSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
         <Frame Grid.Row="1" BackgroundColor="MediumTurquoise" Opacity="{Binding RingSixOpacity}" x:Name="RingSix">
             <Frame.GestureRecognizers>
@@ -70,6 +106,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="DeepSkyBlue"/>
+                    <Setter  Property="BorderColor" Value="LightSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
         <Frame Grid.Row="1" BackgroundColor="PaleTurquoise" Opacity="{Binding RingSevenOpacity}" x:Name="RingSeven">
             <Frame.GestureRecognizers>
@@ -77,6 +119,12 @@
                     Tapped="TapGestureRecognizer_OnTapped"
                     NumberOfTapsRequired="1" />
             </Frame.GestureRecognizers>
+            <Frame.Triggers>
+                <DataTrigger  TargetType="Frame" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="DeepSkyBlue"/>
+                    <Setter  Property="BorderColor" Value="LightSkyBlue"/>
+                </DataTrigger>
+            </Frame.Triggers>
         </Frame>
 
         <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Text="Go!">
@@ -87,12 +135,18 @@
             </Label.GestureRecognizers>
         </Label>
 
-        <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" Command="{Binding StopCommand}" BackgroundColor="LightSkyBlue" IsVisible="{Binding IsRunning}"/>
+        <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" Command="{Binding StopCommand}" BackgroundColor="LightSkyBlue" IsVisible="{Binding IsRunning}">
+            <Button.Triggers>
+                <DataTrigger  TargetType="Button" Binding="{Binding DarkMode}" Value="True">
+                    <Setter  Property="BackgroundColor" Value="White"/>
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
 
-        <StackLayout Grid.Row="2" Orientation="Horizontal" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
+        <!--<StackLayout Grid.Row="2" Orientation="Horizontal" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
             <CheckBox IsChecked="{Binding DarkMode}" Margin="5"/>
             <Label Text="Darkness" VerticalTextAlignment="Center" Margin="5"/>
-        </StackLayout>
+        </StackLayout>-->
     </Grid>
 
 </ContentPage>
