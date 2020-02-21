@@ -10,6 +10,9 @@ namespace GoTimer
         {
             InitializeComponent();
 
+            GoTimerStatic.SaveProperty = (key, value) => Application.Current.Properties[key] = value;
+            GoTimerStatic.GetProperty = key => Application.Current.Properties[key];
+            GoTimerStatic.HasProperty = key => Application.Current.Properties.ContainsKey(key);
             MainPage = new MainPage();
         }
 

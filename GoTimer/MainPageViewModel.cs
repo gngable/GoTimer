@@ -47,7 +47,7 @@ namespace GoTimer
         private Color _ringSixColor = Color.MediumTurquoise;
         private Color _ringSevenColor = Color.PaleTurquoise;
         private string _selectedTheme = "Colorful";
-        private string _selectedSound = "BeepBeep";
+        private string _selectedSound = "Cardinal";
 
         public Color BackgroundColor
         {
@@ -106,7 +106,19 @@ namespace GoTimer
         public int Time
         {
             get => _time;
-            set => SetProperty(ref _time, value);
+            set
+            {
+                SetProperty(ref _time, value);
+
+                try
+                {
+                    GoTimerStatic.SaveProperty(nameof(Time), Time);
+                }
+                catch (Exception e)
+                {
+                    
+                }
+            }
         }
 
         public bool IsRunning
@@ -132,7 +144,7 @@ namespace GoTimer
 
         public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's"});
 
-        public List<string> Sounds => new List<string>(new[] { "BeepBeep", "Evacuate"});
+        public List<string> Sounds => new List<string>(new[] { "Beep Beep", "Evacuate", "Air Horn", "Cardinal", "Hawk", "School Bell", "Tolling Bell", "Train Horn"});
 
 
         public string SelectedTheme
@@ -142,13 +154,34 @@ namespace GoTimer
             {
                 SetProperty(ref _selectedTheme, value);
                 SetTheme();
+
+                try
+                {
+                    GoTimerStatic.SaveProperty(nameof(SelectedTheme), SelectedTheme);
+                }
+                catch (Exception e)
+                {
+
+                }
             }
         }
 
         public string SelectedSound
         {
             get => _selectedSound;
-            set => SetProperty(ref _selectedSound, value);
+            set
+            {
+                SetProperty(ref _selectedSound, value);
+
+                try
+                {
+                    GoTimerStatic.SaveProperty(nameof(SelectedSound), SelectedSound);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
         }
 
         public TimeSpan TimeLeft
@@ -216,7 +249,27 @@ namespace GoTimer
 
             _player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
 
-            RaisePropertyChanged(nameof(Themes));
+            try
+            {
+                if (GoTimerStatic.HasProperty(nameof(Time)))
+                {
+                    Time = (int)GoTimerStatic.GetProperty(nameof(Time));
+                }
+
+                if (GoTimerStatic.HasProperty(nameof(SelectedTheme)))
+                {
+                    SelectedTheme = (string)GoTimerStatic.GetProperty(nameof(SelectedTheme));
+                }
+
+                if (GoTimerStatic.HasProperty(nameof(SelectedSound)))
+                {
+                    SelectedSound = (string)GoTimerStatic.GetProperty(nameof(SelectedSound));
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private void ExecuteStopCommand()
@@ -332,7 +385,7 @@ namespace GoTimer
             {
                 StopAlarm();
 
-                _audioStream = GetStreamFromFile($"GoTimer.{SelectedSound}.mp3");
+                _audioStream = GetStreamFromFile($"GoTimer.Sounds.{SelectedSound.Replace(" ", "")}.mp3");
 
                 _player.Load(_audioStream);
                 _player.Loop = true;
