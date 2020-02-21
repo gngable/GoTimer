@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -36,7 +37,71 @@ namespace GoTimer
         private double _ringFiveOpacity = 1;
         private double _ringFourOpacity = 1;
         private double _ringThreeOpacity = 1;
-        private bool _darkMode;
+        private Color _backgroundColor = Color.LightSkyBlue;
+        private Color _textColor = Color.Black;
+        private Color _ringOneColor = Color.DeepPink;
+        private Color _ringTwoColor = Color.Pink;
+        private Color _ringThreeColor = Color.Purple;
+        private Color _ringFourColor = Color.MediumPurple;
+        private Color _ringFiveColor = Color.DarkTurquoise;
+        private Color _ringSixColor = Color.MediumTurquoise;
+        private Color _ringSevenColor = Color.PaleTurquoise;
+        private string _selectedTheme = "Colorful";
+        private string _selectedSound = "BeepBeep";
+
+        public Color BackgroundColor
+        {
+            get => _backgroundColor;
+            set => SetProperty(ref _backgroundColor, value);
+        }
+
+        public Color TextColor
+        {
+            get => _textColor;
+            set => SetProperty(ref _textColor, value);
+        }
+
+        public Color RingOneColor
+        {
+            get => _ringOneColor;
+            set => SetProperty(ref _ringOneColor, value);
+        }
+
+        public Color RingTwoColor
+        {
+            get => _ringTwoColor;
+            set => SetProperty(ref _ringTwoColor, value);
+        }
+
+        public Color RingThreeColor
+        {
+            get => _ringThreeColor;
+            set => SetProperty(ref _ringThreeColor, value);
+        }
+
+        public Color RingFourColor
+        {
+            get => _ringFourColor;
+            set => SetProperty(ref _ringFourColor, value);
+        }
+
+        public Color RingFiveColor
+        {
+            get => _ringFiveColor;
+            set => SetProperty(ref _ringFiveColor, value);
+        }
+
+        public Color RingSixColor
+        {
+            get => _ringSixColor;
+            set => SetProperty(ref _ringSixColor, value);
+        }
+
+        public Color RingSevenColor
+        {
+            get => _ringSevenColor;
+            set => SetProperty(ref _ringSevenColor, value);
+        }
 
         public int Time
         {
@@ -65,10 +130,25 @@ namespace GoTimer
             }
         }
 
-        public bool DarkMode
+        public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's"});
+
+        public List<string> Sounds => new List<string>(new[] { "BeepBeep", "Evacuate"});
+
+
+        public string SelectedTheme
         {
-            get => _darkMode;
-            set => SetProperty(ref _darkMode, value);
+            get => _selectedTheme;
+            set
+            {
+                SetProperty(ref _selectedTheme, value);
+                SetTheme();
+            }
+        }
+
+        public string SelectedSound
+        {
+            get => _selectedSound;
+            set => SetProperty(ref _selectedSound, value);
         }
 
         public TimeSpan TimeLeft
@@ -135,10 +215,23 @@ namespace GoTimer
             StopCommand = new DelegateCommand(ExecuteStopCommand);
 
             _player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
+
+            RaisePropertyChanged(nameof(Themes));
         }
 
         private void ExecuteStopCommand()
         {
+            if (_timeUp)
+            {
+                RingOneOpacity = 1;
+                RingTwoOpacity = 1;
+                RingThreeOpacity = 1;
+                RingFourOpacity = 1;
+                RingFiveOpacity = 1;
+                RingSixOpacity = 1;
+                RingSevenOpacity = 1;
+            }
+
             lock (_sync)
             {
                 _stopNow = true;
@@ -239,7 +332,7 @@ namespace GoTimer
             {
                 StopAlarm();
 
-                _audioStream = GetStreamFromFile("GoTimer.TakeCare.mp3");
+                _audioStream = GetStreamFromFile($"GoTimer.{SelectedSound}.mp3");
 
                 _player.Load(_audioStream);
                 _player.Loop = true;
@@ -270,6 +363,70 @@ namespace GoTimer
             var assembly = Assembly.GetExecutingAssembly();
             var stream = assembly.GetManifestResourceStream(filename);
             return stream;
+        }
+
+        private void SetTheme()
+        {
+            if (SelectedTheme == "Colorful")
+            {
+                BackgroundColor = Color.LightSkyBlue;
+                TextColor = Color.Black;
+                RingOneColor = Color.DeepPink;
+                RingTwoColor = Color.Pink;
+                RingThreeColor = Color.Purple;
+                RingFourColor = Color.MediumPurple;
+                RingFiveColor = Color.DarkTurquoise;
+                RingSixColor = Color.MediumTurquoise;
+                RingSevenColor = Color.PaleTurquoise;
+            }
+            else if (SelectedTheme == "Rainbow")
+            {
+                BackgroundColor = Color.SkyBlue;
+                TextColor = Color.Black;
+                RingOneColor = Color.Red;
+                RingTwoColor = Color.FromArgb(255, 127, 0);
+                RingThreeColor = Color.Yellow;
+                RingFourColor = Color.FromArgb(0, 255, 0);
+                RingFiveColor = Color.Blue;
+                RingSixColor = Color.FromArgb(46, 43, 95);
+                RingSevenColor = Color.FromArgb(139, 0, 255);
+            }
+            else if (SelectedTheme == "Smoke")
+            {
+                BackgroundColor = Color.GhostWhite;
+                TextColor = Color.Black;
+                RingOneColor = Color.Gainsboro;
+                RingTwoColor = Color.DarkGray;
+                RingThreeColor = Color.Gray;
+                RingFourColor = Color.DimGray;
+                RingFiveColor = Color.Gray;
+                RingSixColor = Color.DarkGray;
+                RingSevenColor = Color.Gray;
+            }
+            else if (SelectedTheme == "Dark")
+            {
+                BackgroundColor = Color.Black;
+                TextColor = Color.White;
+                RingOneColor = Color.DimGray;
+                RingTwoColor = Color.DimGray;
+                RingThreeColor = Color.DimGray;
+                RingFourColor = Color.DimGray;
+                RingFiveColor = Color.DimGray;
+                RingSixColor = Color.DimGray;
+                RingSevenColor = Color.DimGray;
+            }
+            else if (SelectedTheme == "Evie's")
+            {
+                BackgroundColor = Color.DarkBlue;
+                TextColor = Color.GreenYellow;
+                RingOneColor = Color.LightGreen;
+                RingTwoColor = Color.PaleTurquoise;
+                RingThreeColor = Color.Turquoise;
+                RingFourColor = Color.Turquoise;
+                RingFiveColor = Color.DarkTurquoise;
+                RingSixColor = Color.DarkTurquoise;
+                RingSevenColor = Color.DodgerBlue;
+            }
         }
     }
 }
