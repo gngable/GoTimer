@@ -24,9 +24,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label VerticalOptions="Center" VerticalTextAlignment="Center" Text="Time:" Margin="5" TextColor="{Binding TextColor}"/>
-            <Entry Grid.Column="1" Text="{Binding Time}" TextColor="{Binding TextColor}" Keyboard="Numeric"/>
-            <Label Grid.Column="2" VerticalOptions="Center" VerticalTextAlignment="Center" Text="Seconds" Margin="5" TextColor="{Binding TextColor}"/>
+            <Label VerticalOptions="Center" VerticalTextAlignment="Center" Text="Time:" FontSize="Large" FontAttributes="Bold" Margin="5" TextColor="{Binding TextColor}"/>
+            <Entry Grid.Column="1" Text="{Binding Time}" TextColor="{Binding TextColor}" FontSize="Large" FontAttributes="Bold" Keyboard="Numeric"/>
+            <Label Grid.Column="2" VerticalOptions="Center" VerticalTextAlignment="Center" Text="Seconds" Margin="5" FontSize="Large" FontAttributes="Bold" TextColor="{Binding TextColor}"/>
         </Grid>
         <Label Grid.Row="0" HorizontalOptions="CenterAndExpand" Text="{Binding TimeText}" IsVisible="{Binding IsRunning}" Margin="5" FontSize="Large" FontAttributes="Bold" TextColor="{Binding TextColor}"/>
 
@@ -80,7 +80,7 @@
             </Frame.GestureRecognizers>
         </Frame>
 
-        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Text="Go!" FontAttributes="Bold" TextColor="{Binding TextColor}">
+        <Label Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Text="Go!" FontSize="Large" FontAttributes="Bold" TextColor="{Binding TextColor}">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer
                     Tapped="TapGestureRecognizer_OnTapped"
@@ -90,17 +90,17 @@
 
         <StackLayout Grid.Row="1" VerticalOptions="End" Orientation="Horizontal" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
             <CheckBox IsChecked="{Binding Continuous, Mode=TwoWay}" Color="{Binding TextColor}"/>
-            <Label Text="Continuous" TextColor="{Binding TextColor}" VerticalOptions="Center"/>
+            <Label Text="Continuous" FontSize="Large" FontAttributes="Bold" TextColor="{Binding TextColor}" VerticalOptions="Center"/>
         </StackLayout>
 
-        <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" Command="{Binding StopCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" IsVisible="{Binding IsRunning}">
+        <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" FontSize="Large" FontAttributes="Bold" Command="{Binding StopCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" IsVisible="{Binding IsRunning}">
         </Button>
 
         <StackLayout Grid.Row="2" Orientation="Horizontal" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
-            <Label Text="Theme:" TextColor="{Binding TextColor}" VerticalOptions="Center" Margin="5"/>
-            <Picker ItemsSource="{Binding Themes}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding SelectedTheme}" TextColor="{Binding TextColor}" Title="Theme" HorizontalOptions="StartAndExpand" WidthRequest="100"/>
-            <Label Text="Sound:" TextColor="{Binding TextColor}" VerticalOptions="Center" Margin="5"/>
-            <Picker ItemsSource="{Binding Sounds}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding SelectedSound}" TextColor="{Binding TextColor}" Title="Theme" HorizontalOptions="StartAndExpand" WidthRequest="100"/>
+            <Label Text="Theme:" FontSize="Large" FontAttributes="Bold" TextColor="{Binding TextColor}" VerticalOptions="Center" Margin="5"/>
+            <Picker ItemsSource="{Binding Themes}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding SelectedTheme}" TextColor="{Binding TextColor}" FontSize="Large" FontAttributes="Bold" Title="Theme" HorizontalOptions="StartAndExpand" WidthRequest="100"/>
+            <Label Text="Sound:" TextColor="{Binding TextColor}" FontSize="Large" FontAttributes="Bold" VerticalOptions="Center" Margin="5"/>
+            <Picker ItemsSource="{Binding Sounds}" ItemDisplayBinding="{Binding .}" SelectedItem="{Binding SelectedSound}" TextColor="{Binding TextColor}" FontSize="Large" FontAttributes="Bold" Title="Sound" HorizontalOptions="StartAndExpand" WidthRequest="100"/>
         </StackLayout>
     </Grid>
 

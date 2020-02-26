@@ -49,6 +49,7 @@ namespace GoTimer
         private string _selectedTheme = "Colorful";
         private string _selectedSound = "Cardinal";
         private bool _continuous;
+        private bool _dontPlaySound = false;
 
         public bool Continuous
         {
@@ -161,9 +162,9 @@ namespace GoTimer
             }
         }
 
-        public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's", "Merci's Bubblegum", "Earth", "Sunset", "Raindrop"});
+        public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's", "Merci's Bubblegum", "Earth", "Sunset", "Raindrop", "Captain A", "Time to wake up! It's 11 AM!"});
 
-        public List<string> Sounds => new List<string>(new[] { "Beep Beep", "Evacuate", "Air Horn", "Cardinal", "Hawk", "School Bell", "Tolling Bell", "Train Horn", "Bubble Gum", "Sea Gulls", "Thunder"});
+        public List<string> Sounds => new List<string>(new[] { "Beep Beep", "Evacuate", "Air Horn", "Cardinal", "Hawk", "School Bell", "Tolling Bell", "Train Horn", "Bubble Gum", "Sea Gulls", "Thunder", "Bomb Drop",  "Rooster"});
 
 
         public string SelectedTheme
@@ -195,6 +196,7 @@ namespace GoTimer
                 try
                 {
                     GoTimerStatic.SaveProperty(nameof(SelectedSound), SelectedSound);
+                    SoundAlarm(false);
                 }
                 catch (Exception e)
                 {
@@ -263,6 +265,7 @@ namespace GoTimer
 
         public MainPageViewModel()
         {
+            _dontPlaySound = true;
             StartCommand = new DelegateCommand(ExecuteStartCommand);
             StopCommand = new DelegateCommand(ExecuteStopCommand);
 
@@ -294,6 +297,8 @@ namespace GoTimer
             {
 
             }
+
+            _dontPlaySound = false;
         }
 
         private void ExecuteStopCommand()
@@ -373,7 +378,7 @@ namespace GoTimer
 
                         if (TimeLeft == TimeSpan.Zero)
                         {
-                            SoundAlarm();
+                            SoundAlarm(!Continuous);
 
                             if (Continuous)
                             {
@@ -413,8 +418,10 @@ namespace GoTimer
             });
         }
 
-        private void SoundAlarm()
+        private void SoundAlarm(bool repeat)
         {
+            if (_dontPlaySound) return;
+
             try
             {
                 StopAlarm();
@@ -422,7 +429,7 @@ namespace GoTimer
                 _audioStream = GetStreamFromFile($"GoTimer.Sounds.{SelectedSound.Replace(" ", "")}.mp3");
 
                 _player.Load(_audioStream);
-                _player.Loop = !Continuous;
+                _player.Loop = repeat;
                 _player.Volume = 1;
                 _player.Play();
             }
@@ -454,6 +461,8 @@ namespace GoTimer
 
         private void SetTheme()
         {
+            _dontPlaySound = true;
+
             if (SelectedTheme == "Colorful")
             {
                 BackgroundColor = Color.LightSkyBlue;
@@ -565,6 +574,34 @@ namespace GoTimer
                 RingSevenColor = Color.AliceBlue;
                 SelectedSound = "Thunder";
             }
+            else if (SelectedTheme == "Captain A")
+            {
+                BackgroundColor = Color.LightSkyBlue;
+                TextColor = Color.Black;
+                RingOneColor = Color.Red;
+                RingTwoColor = Color.White;
+                RingThreeColor = Color.White;
+                RingFourColor = Color.Red;
+                RingFiveColor = Color.DarkBlue;
+                RingSixColor = Color.DarkBlue;
+                RingSevenColor = Color.Silver;
+                SelectedSound = "Bomb Drop";
+            }
+            else if (SelectedTheme == "Time to wake up! It's 11 AM!")
+            {
+                BackgroundColor = Color.DeepSkyBlue;
+                TextColor = Color.YellowGreen;
+                RingOneColor = Color.Yellow;
+                RingTwoColor = Color.Yellow;
+                RingThreeColor = Color.LightGoldenrodYellow;
+                RingFourColor = Color.LightGoldenrodYellow;
+                RingFiveColor = Color.LightYellow;
+                RingSixColor = Color.LightYellow;
+                RingSevenColor = Color.White;
+                SelectedSound = "Rooster";
+            }
+
+            _dontPlaySound = false;
         }
     }
 }
