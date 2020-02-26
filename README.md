@@ -14,5 +14,6 @@ https://romannurik.github.io/AndroidAssetStudio/
 Sounds came from http://soundbible.com/ and are under this license https://creativecommons.org/licenses/by/3.0/us/legalcode
 
 Thunder: by Mike Koenig
+Rooster: by Shelly
 
 A list of the rest will come shortly
