@@ -48,6 +48,25 @@ namespace GoTimer
         private Color _ringSevenColor = Color.PaleTurquoise;
         private string _selectedTheme = "Colorful";
         private string _selectedSound = "Cardinal";
+        private bool _continuous;
+
+        public bool Continuous
+        {
+            get => _continuous;
+            set
+            {
+                SetProperty(ref _continuous, value);
+
+                try
+                {
+                    GoTimerStatic.SaveProperty(nameof(Continuous), Continuous);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }
 
         public Color BackgroundColor
         {
@@ -142,9 +161,9 @@ namespace GoTimer
             }
         }
 
-        public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's"});
+        public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's", "Merci's Bubblegum", "Earth", "Sunset", "Raindrop"});
 
-        public List<string> Sounds => new List<string>(new[] { "Beep Beep", "Evacuate", "Air Horn", "Cardinal", "Hawk", "School Bell", "Tolling Bell", "Train Horn"});
+        public List<string> Sounds => new List<string>(new[] { "Beep Beep", "Evacuate", "Air Horn", "Cardinal", "Hawk", "School Bell", "Tolling Bell", "Train Horn", "Bubble Gum", "Sea Gulls", "Thunder"});
 
 
         public string SelectedTheme
@@ -265,6 +284,11 @@ namespace GoTimer
                 {
                     SelectedSound = (string)GoTimerStatic.GetProperty(nameof(SelectedSound));
                 }
+
+                if (GoTimerStatic.HasProperty(nameof(Continuous)))
+                {
+                    Continuous = (bool)GoTimerStatic.GetProperty(nameof(Continuous));
+                }
             }
             catch (Exception ex)
             {
@@ -349,9 +373,19 @@ namespace GoTimer
 
                         if (TimeLeft == TimeSpan.Zero)
                         {
-                            _timeUp = true;
                             SoundAlarm();
-                            break;
+
+                            if (Continuous)
+                            {
+                                TimeLeft = TimeSpan.FromSeconds(Time);
+                                _startTime = TimeSpan.FromSeconds(Time);
+                                _stopwatch = Stopwatch.StartNew();
+                            }
+                            else
+                            {
+                                _timeUp = true;
+                                break;
+                            }
                         }
                     }
 
@@ -388,7 +422,7 @@ namespace GoTimer
                 _audioStream = GetStreamFromFile($"GoTimer.Sounds.{SelectedSound.Replace(" ", "")}.mp3");
 
                 _player.Load(_audioStream);
-                _player.Loop = true;
+                _player.Loop = !Continuous;
                 _player.Volume = 1;
                 _player.Play();
             }
@@ -479,6 +513,57 @@ namespace GoTimer
                 RingFiveColor = Color.DarkTurquoise;
                 RingSixColor = Color.DarkTurquoise;
                 RingSevenColor = Color.DodgerBlue;
+            }
+            else if (SelectedTheme == "Merci's Bubblegum")
+            {
+                BackgroundColor = Color.PaleVioletRed;
+                TextColor = Color.Purple;
+                RingOneColor = Color.Magenta;
+                RingTwoColor = Color.DeepPink;
+                RingThreeColor = Color.HotPink;
+                RingFourColor = Color.Pink;
+                RingFiveColor = Color.LightPink;
+                RingSixColor = Color.PeachPuff;
+                RingSevenColor = Color.GhostWhite;
+                SelectedSound = "Bubble Gum";
+            }
+            else if (SelectedTheme == "Earth")
+            {
+                BackgroundColor = Color.SaddleBrown;
+                TextColor = Color.MintCream;
+                RingOneColor = Color.DarkSlateGray;
+                RingTwoColor = Color.Maroon;
+                RingThreeColor = Color.RosyBrown;
+                RingFourColor = Color.SteelBlue;
+                RingFiveColor = Color.NavajoWhite;
+                RingSixColor = Color.SlateGray;
+                RingSevenColor = Color.Black;
+            }
+            else if (SelectedTheme == "Sunset")
+            {
+                BackgroundColor = Color.DarkBlue;
+                TextColor = Color.Orange;
+                RingOneColor = Color.Purple;
+                RingTwoColor = Color.OrangeRed;
+                RingThreeColor = Color.Orange;
+                RingFourColor = Color.LightSalmon;
+                RingFiveColor = Color.Yellow;
+                RingSixColor = Color.LightGoldenrodYellow;
+                RingSevenColor = Color.White;
+                SelectedSound = "Sea Gulls";
+            }
+            else if (SelectedTheme == "Raindrop")
+            {
+                BackgroundColor = Color.DarkGray;
+                TextColor = Color.DarkBlue;
+                RingOneColor = Color.MediumBlue;
+                RingTwoColor = Color.Blue;
+                RingThreeColor = Color.DodgerBlue;
+                RingFourColor = Color.CornflowerBlue;
+                RingFiveColor = Color.SkyBlue;
+                RingSixColor = Color.PowderBlue;
+                RingSevenColor = Color.AliceBlue;
+                SelectedSound = "Thunder";
             }
         }
     }

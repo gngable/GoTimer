@@ -15,10 +15,13 @@
     <None Remove="Evacuate.mp3" />
     <None Remove="Sounds\AirHorn.mp3" />
     <None Remove="Sounds\BeepBeep.mp3" />
+    <None Remove="Sounds\BubbleGum.mp3" />
     <None Remove="Sounds\Cardinal.mp3" />
     <None Remove="Sounds\Evacuate.mp3" />
     <None Remove="Sounds\Hawk.mp3" />
     <None Remove="Sounds\SchoolBell.mp3" />
+    <None Remove="Sounds\SeaGulls.mp3" />
+    <None Remove="Sounds\Thunder.mp3" />
     <None Remove="Sounds\TollingBell.mp3" />
     <None Remove="Sounds\TrainHorn.mp3" />
   </ItemGroup>
@@ -26,10 +29,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Sounds\AirHorn.mp3" />
     <EmbeddedResource Include="Sounds\BeepBeep.mp3" />
+    <EmbeddedResource Include="Sounds\BubbleGum.mp3" />
     <EmbeddedResource Include="Sounds\Cardinal.mp3" />
     <EmbeddedResource Include="Sounds\Evacuate.mp3" />
+    <EmbeddedResource Include="Sounds\SeaGulls.mp3" />
     <EmbeddedResource Include="Sounds\Hawk.mp3" />
     <EmbeddedResource Include="Sounds\SchoolBell.mp3" />
+    <EmbeddedResource Include="Sounds\Thunder.mp3" />
     <EmbeddedResource Include="Sounds\TollingBell.mp3" />
     <EmbeddedResource Include="Sounds\TrainHorn.mp3" />
   </ItemGroup>

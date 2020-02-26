@@ -88,6 +88,11 @@
             </Label.GestureRecognizers>
         </Label>
 
+        <StackLayout Grid.Row="1" VerticalOptions="End" Orientation="Horizontal" IsVisible="{Binding IsRunning, Converter={StaticResource InverseBoolConverter}}">
+            <CheckBox IsChecked="{Binding Continuous, Mode=TwoWay}" Color="{Binding TextColor}"/>
+            <Label Text="Continuous" TextColor="{Binding TextColor}" VerticalOptions="Center"/>
+        </StackLayout>
+
         <Button Grid.Row="2" HorizontalOptions="Center" Text="Stop" Command="{Binding StopCommand}" BackgroundColor="{Binding BackgroundColor}" TextColor="{Binding TextColor}" IsVisible="{Binding IsRunning}">
         </Button>
 
