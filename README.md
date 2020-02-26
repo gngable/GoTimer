@@ -6,11 +6,13 @@ Just set the time and select Go! The rings around Go disappear while the time is
 Several color themes and alarm sounds to choose from.
 
 
-Attribution:
+## Attribution:
 
 Icons were created with Android Asset Studio
 https://romannurik.github.io/AndroidAssetStudio/
 
 Sounds came from http://soundbible.com/ and are under this license https://creativecommons.org/licenses/by/3.0/us/legalcode
+
 Thunder: by Mike Koenig
+
 A list of the rest will come shortly
