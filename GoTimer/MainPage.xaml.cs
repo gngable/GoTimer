@@ -28,8 +28,6 @@ namespace GoTimer
         {
             var t = TotalGrid.Width;
 
-            
-
             t -= 10;
 
             var step = ((t - 100) / 2) / 6;
@@ -82,6 +80,7 @@ namespace GoTimer
             RingSeven.Margin = new Thickness(hmargin, vmargin);
             RingSeven.CornerRadius = (float)t / 2;
 
+            (BindingContext as MainPageViewModel).Initialized = true;
         }
     }
 }

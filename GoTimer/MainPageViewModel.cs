@@ -51,6 +51,9 @@ namespace GoTimer
         private bool _continuous;
         private bool _dontPlaySound = false;
 
+        public bool Initialized { get; set; } = false;
+
+
         public bool Continuous
         {
             get => _continuous;
@@ -162,7 +165,7 @@ namespace GoTimer
             }
         }
 
-        public List<string> Themes => new List<string>(new []{"Colorful", "Rainbow", "Smoke", "Dark", "Evie's", "Merci's Bubblegum", "Earth", "Sunset", "Raindrop", "Captain A", "Time to wake up! It's 11 AM!"});
+        public List<string> Themes => new List<string>(new []{"Colorful", "Smoke", "Dark", "Evie's", "Merci's Bubblegum", "Earth", "Rainbow", "Sunset", "Raindrop", "Captain A", "Time to wake up! It's 11 AM!"});
 
         public List<string> Sounds => new List<string>(new[] { "Beep Beep", "Evacuate", "Air Horn", "Cardinal", "Hawk", "School Bell", "Tolling Bell", "Train Horn", "Bubble Gum", "Sea Gulls", "Thunder", "Bomb Drop",  "Rooster"});
 
@@ -420,7 +423,7 @@ namespace GoTimer
 
         private void SoundAlarm(bool repeat)
         {
-            if (_dontPlaySound) return;
+            if (_dontPlaySound || !Initialized) return;
 
             try
             {
@@ -466,7 +469,7 @@ namespace GoTimer
             if (SelectedTheme == "Colorful")
             {
                 BackgroundColor = Color.LightSkyBlue;
-                TextColor = Color.Black;
+                TextColor = Color.DodgerBlue;
                 RingOneColor = Color.DeepPink;
                 RingTwoColor = Color.Pink;
                 RingThreeColor = Color.Purple;
@@ -478,7 +481,7 @@ namespace GoTimer
             else if (SelectedTheme == "Rainbow")
             {
                 BackgroundColor = Color.SkyBlue;
-                TextColor = Color.Black;
+                TextColor = Color.DodgerBlue;
                 RingOneColor = Color.Red;
                 RingTwoColor = Color.FromArgb(255, 127, 0);
                 RingThreeColor = Color.Yellow;
@@ -504,12 +507,12 @@ namespace GoTimer
                 BackgroundColor = Color.Black;
                 TextColor = Color.White;
                 RingOneColor = Color.DimGray;
-                RingTwoColor = Color.DimGray;
-                RingThreeColor = Color.DimGray;
+                RingTwoColor = Color.DarkGray;
+                RingThreeColor = Color.Gray;
                 RingFourColor = Color.DimGray;
-                RingFiveColor = Color.DimGray;
-                RingSixColor = Color.DimGray;
-                RingSevenColor = Color.DimGray;
+                RingFiveColor = Color.Gray;
+                RingSixColor = Color.DarkGray;
+                RingSevenColor = Color.Gray;
             }
             else if (SelectedTheme == "Evie's")
             {
